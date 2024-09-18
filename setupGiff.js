@@ -1,5 +1,5 @@
 export function setupGIff () {
-  const busqueda = 'pibe'
+  const busqueda = 'pibes'
   const cantida = '15'
   const api = 'FmwH69436DfQMYhIQsuNFmxhQfA5koFH'
   const tString = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${busqueda}&limit=${cantida}&offset=0&rating=g&lang=es&bundle=messaging_non_clipsv`
@@ -8,7 +8,7 @@ export function setupGIff () {
   let gifs = []
   //   creando un loader
   const loader = document.createElement('p')
-  loader.innerText = 'cargando...'
+  loader.innerText = 'cargando img...'
   gifP.appendChild(loader)
 
   const updateGif = (index) => {
