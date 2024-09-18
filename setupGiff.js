@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export function setupGIff () {
   const busqueda = 'pibes'
   const cantida = '15'
@@ -44,8 +45,8 @@ export function setupGIff () {
   const fetchGifs = () => {
     const peticion = new XMLHttpRequest()
     peticion.addEventListener('readystatechange', function () {
-      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        accionXhr(this.responseText)
+      if (this.readyState === XMLHttpRequest.DONE) {
+        if (this.status === 200) { accionXhr(this.responseText) }
       } else { accionXhrDefault() }
     })
 
