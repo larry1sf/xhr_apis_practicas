@@ -23,20 +23,22 @@ export function setupCard (element) {
   cargarLoader()
 
   // actualizo el dom
-  function updateDom (index, data) {
+  function updateDom ({ name, description, modified }, imgR) {
     imgC.innerHTML = ''
-    const nombre = data.name || 'nombre no disponible'
-    const description = data.description || 'descripcion no disponible'
-    const fecha = data.modified ? data.modified.slice(0, 10) : 'fecha no disponible'
-    const imgPath = `${data.thumbnail.path}.${data.thumbnail.extension}`
+    const nombre = name || 'nombre no disponible'
+    const desc = description || 'descripcion no disponible'
+    const fecha = modified ? modified.slice(0, 10) : 'fecha no disponible'
+    const imgPath = `${imgR.thumbnail.path}.${imgR.thumbnail.extension}`
 
     const img = document.createElement('img')
+
     img.src = imgPath || ''
     img.height = 130
     img.width = 130
+    console.log(img)
 
     nombreP.innerText = nombre
-    pP.innerText = description
+    pP.innerText = desc
     fechaP.innerText = fecha
     imgC.appendChild(img)
   }
@@ -52,23 +54,24 @@ export function setupCard (element) {
         const res = JSON.parse(this.responseText)
         const data = res.data.results
         if (data.length > 0) {
-          let currentIndex = 0
           // primera muestra
+          let currentIndex = 0
           updateDom(currentIndex, data[currentIndex])
           // cambiar caundo hacen click
           document.getElementById('btn-active').addEventListener('click', function () {
-            currentIndex = (currentIndex + 1) % data.length
+            currentIndex += 1 % data.length
             cargarLoader()
-            setTimeout(() => { updateDom(currentIndex, data[currentIndex]) }, 150)
+            setTimeout(() => { updateDom(currentIndex, data[currentIndex]) }, 1500)
           })
         } else {
-          console.log('no ahi resultados')
+          console.log(new Error('no se pudo realizar la peticion', this.status))
         }
       // eslint-disable-next-line no-undef
-      } else if (this.readyState === XMLHttpRequest.DONE) {
+      } else if (this.readyState === !XMLHttpRequest.DONE) {
         console.log('no se pudo realizar la peticion', this.status)
       }
-    })
+    }
+    )
 
     cliente.open('GET', apiUrl)
     cliente.send()

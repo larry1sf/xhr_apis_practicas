@@ -56,7 +56,7 @@ export function setupGIff () {
 
   fetchGifs()
   document.getElementById('btn-active').addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % gifs.length
+    currentIndex += 1 % gifs.length
     updateGif(currentIndex)
   })
 }

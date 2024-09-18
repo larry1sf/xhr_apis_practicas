@@ -2,6 +2,7 @@ import './style.css'
 // import meMiniCard from './me-mini-card.svg'
 import { setupCard } from './counter.js'
 import { setupGIff } from './setupGiff.js'
+import { peticion } from './rapida.js'
 document.querySelector('#app').innerHTML = `
   <div style="font-family: monospace;">
     <div>
@@ -33,3 +34,11 @@ document.querySelector('#app').innerHTML = `
 `
 setupGIff()
 setupCard(document.querySelector('#btn-active'))
+
+const busqueda = 'jodio'
+const limite = 4
+const urL = `https://api.giphy.com/v1/gifs/search?api_key=FmwH69436DfQMYhIQsuNFmxhQfA5koFH&q=${busqueda}&limit=${limite}&offset=0&rating=g&lang=es&bundle=messaging_non_clips`
+peticion('GET', urL, function (err, data) {
+  console.log({ data })
+  console.log({ err })
+})
