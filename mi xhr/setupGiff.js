@@ -10,7 +10,6 @@ export function setupGIff () {
   //   creando un loader
   const loader = document.createElement('p')
   loader.innerText = 'cargando img...'
-  gifP.appendChild(loader)
 
   const updateGif = (index) => {
     const gifData = gifs[index]
@@ -21,17 +20,16 @@ export function setupGIff () {
     gif.alt = gifData.alt
     gif.height = 100
     gif.width = 100
-    gifP.innerHTML = gif
 
     // reseteado load y poniendo gif
     gifP.innerHTML = ''
     gifP.appendChild(loader)
 
     // usando onload
-    gif.onload = function () {
+    setTimeout(() => {
       gifP.innerHTML = ''
       gifP.appendChild(gif)
-    }
+    }, 1300)
   }
 
   const accionXhr = (responseText) => {

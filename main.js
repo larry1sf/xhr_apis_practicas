@@ -1,8 +1,6 @@
 import './style.css'
-// import meMiniCard from './me-mini-card.svg'
-import { setupCard } from './counter.js'
-import { setupGIff } from './setupGiff.js'
-import { peticion } from './rapida.js'
+import { setupCard } from './mi xhr/counter.js'
+import { setupGIff } from './mi xhr/setupGiff.js'
 document.querySelector('#app').innerHTML = `
   <div style="font-family: monospace;">
     <div>
@@ -35,10 +33,20 @@ document.querySelector('#app').innerHTML = `
 setupGIff()
 setupCard(document.querySelector('#btn-active'))
 
-const busqueda = 'jodio'
-const limite = 4
-const urL = `https://api.giphy.com/v1/gifs/search?api_key=FmwH69436DfQMYhIQsuNFmxhQfA5koFH&q=${busqueda}&limit=${limite}&offset=0&rating=g&lang=es&bundle=messaging_non_clips`
-peticion('GET', urL, function (err, data) {
-  console.log({ data })
-  console.log({ err })
-})
+function myFetch (url) {
+  return fetch(url).then((res) => res.json())
+}
+
+const baseUrl2 = 'https://jsonplaceholder.typicode.com'
+
+async function getDataUser (id) {
+  try {
+    const user = await myFetch(`${baseUrl2}/users/${id}`)
+    const post = await myFetch(`${baseUrl2}/posts?userId=${user.id}`)
+    const comments = await myFetch(`${baseUrl2}/comments?postId=${post[0].id}`)
+    console.log({ user, post, comments })
+  } catch (err) {
+    console.log({ err })
+  }
+}
+getDataUser(6)

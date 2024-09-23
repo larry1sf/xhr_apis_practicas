@@ -35,8 +35,6 @@ export function setupCard (element) {
     img.src = imgPath || ''
     img.height = 130
     img.width = 130
-    console.log(img)
-
     nombreP.innerText = nombre
     pP.innerText = desc
     fechaP.innerText = fecha
@@ -61,7 +59,7 @@ export function setupCard (element) {
           document.getElementById('btn-active').addEventListener('click', function () {
             currentIndex += 1 % data.length
             cargarLoader()
-            setTimeout(() => { updateDom(currentIndex, data[currentIndex]) }, 1500)
+            setTimeout(() => { updateDom(currentIndex, data[currentIndex]) }, 1300)
           })
         } else {
           console.log(new Error('no se pudo realizar la peticion', this.status))
